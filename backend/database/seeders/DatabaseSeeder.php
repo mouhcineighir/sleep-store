@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Category;
+use App\Models\Product;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +17,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $mattresses = Category::create([    //this is the first subcategory (just for test)
+            'name' => 'Mattresses',
+            'slug' => 'mattresses',
+            'status' => 'active',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $pillows = Category::create([       //this is the second subcategory (just for test)
+            'name' => 'Pillows',
+            'slug' => 'pillows',
+            'status' => 'active',
+        ]);
+
+        Product::create([                   //this is product info from mattresses subcategory
+            'category_id' => $mattresses->id,
+            'name' => 'Luxury Memory Foam Mattress',
+            'slug' => 'luxury-memory-foam-mattress',
+            'price' => 499.99,
+            'stock' => 20,
+            'status' => 'active',
+            'featured' => true,
+        ]);
+        Product::create([                   //this is product info from pillows subcategory
+            'category_id' => $pillows->id,
+            'name' => 'Cooling Gel Pillow',
+            'slug' => 'cooling-gel-pillow',
+            'price' => 39.99,
+            'stock' => 50,
+            'status' => 'active',
         ]);
     }
 }
