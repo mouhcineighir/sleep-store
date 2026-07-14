@@ -7,6 +7,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\Product;
+use Spatie\Permission\Models\Role;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +19,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'customer']);
+
+        
         $mattresses = Category::create([    //this is the first subcategory (just for test)
             'name' => 'Mattresses',
             'slug' => 'mattresses',
