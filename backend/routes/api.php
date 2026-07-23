@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\WishlistController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\CouponController;
 
+use App\Http\Controllers\Api\OrderController;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -44,6 +46,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 
     Route::post('/coupons/apply', [CouponController::class, 'apply']);
+
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{order}', [OrderController::class, 'show']);
+    Route::post('/orders', [OrderController::class, 'store']);
 });
 
 Route::get('/products', [ProductController::class, 'index']);
