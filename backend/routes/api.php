@@ -7,6 +7,11 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\CouponController;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -24,6 +29,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+
+
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart', [CartController::class, 'store']);
+    Route::put('/cart/{item}', [CartController::class, 'update']);
+    Route::delete('/cart/{item}', [CartController::class, 'destroy']);
+
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::post('/wishlist', [WishlistController::class, 'store']);
+    Route::delete('/wishlist/{product}', [WishlistController::class, 'destroy']);
+
+    Route::post('/products/{product}/reviews', [ReviewController::class, 'store']);
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+
+    Route::post('/coupons/apply', [CouponController::class, 'apply']);
 });
 
 Route::get('/products', [ProductController::class, 'index']);
